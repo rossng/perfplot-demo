@@ -1,4 +1,4 @@
-name: Daily Perfplot Update
+name: Daily perfplot update
 
 on:
   schedule:
