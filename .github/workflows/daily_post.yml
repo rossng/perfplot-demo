@@ -1,0 +1,23 @@
+name: Daily Perfplot Update
+
+on:
+  schedule:
+    - cron: '0 12 * * *'
+  workflow_dispatch:
+
+jobs:
+  post-random-value:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Generate random number and post
+        env:
+          API_KEY: ${{ secrets.API_KEY }}
+        run: |
+          random=$(( RANDOM % 16 + 5 ))
+          echo "Posting value $random"
+          curl -X POST \
+            -H "Authorization: Bearer $API_KEY" \
+            -H "Content-Type: application/json" \
+          -d "{\"value\": $random}" \
+            https://perfplot.com/api/v1/series/a967b1b1-10ff-4914-b5f9-4bdc940717b7/entries
+
